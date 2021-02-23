@@ -34,11 +34,11 @@ q = Queue()
 goal_state = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]])
 
 #TEST CASES
-root = np.array([[1, 2, 3, 4],[ 5, 6,0, 8], [9, 10, 7, 12] , [13, 14, 11, 15]])
-#root = np.array([[1, 0, 3, 4],[ 5, 2, 7, 8], [9, 6, 10, 11] , [13, 14, 15, 12]])
-#root = np.array([[0, 2, 3, 4],[ 1,5, 7, 8], [9, 6, 11, 12] , [13, 10, 14, 15]])
-#root = np.array([[5, 1, 2, 3],[0,6, 7, 4], [9, 10, 11, 8] , [13, 14, 15, 12]])
-#root = np.array([[1, 6, 2, 3], [9,5, 7, 4], [0, 10, 11, 8] , [13, 14, 15, 12]])
+root = np.array([[1, 2, 3, 4],[ 5, 6,0, 8], [9, 10, 7, 12] , [13, 14, 11, 15]])    #1
+#root = np.array([[1, 0, 3, 4],[ 5, 2, 7, 8], [9, 6, 10, 11] , [13, 14, 15, 12]])   #2
+#root = np.array([[0, 2, 3, 4],[ 1,5, 7, 8], [9, 6, 11, 12] , [13, 10, 14, 15]])    #3
+#root = np.array([[5, 1, 2, 3],[0,6, 7, 4], [9, 10, 11, 8] , [13, 14, 15, 12]])     #4
+#root = np.array([[1, 6, 2, 3], [9,5, 7, 4], [0, 10, 11, 8] , [13, 14, 15, 12]])     #5
 
 root = np.reshape(root,(4,4))
 
@@ -263,7 +263,18 @@ while np.array_equiv(parent,root) ==  False:
 path.append(root)
 path.reverse()
 
-#Generating text file of the path for TEST CASE 1
+file = open("nodePath_TestCase5.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()   
+print(path)
+
+'''#Generating text file of the path for TEST CASE 1
 file = open("nodePath_TestCase1.txt", "w")
 for i in range(len(path)):
     a = string(path[i])
@@ -273,7 +284,7 @@ for i in range(len(path)):
     file.write('\n')
 
 file.close()    
-print(path)
+print(path)'''
 
 #Generating text file of the path for TEST CASE 2
 '''file = open("nodePath_TestCase2.txt", "w")
@@ -326,19 +337,3 @@ for i in range(len(path)):
 file.close()   
 print(path)'''
 
-   
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
