@@ -1,106 +1,106 @@
-# -*- coding: utf-8 -*-
-
 import numpy as np
 
+#Creating a QUEUE CLASS to access queue methods
 class Queue:
     
     def __init__(self):
         self.items = []
-        
+    #To insert an element at the back of the queue 
+    
     def enqueue(self, item):
         self.items.insert(0 , item)
         
+    #To remove the back element     
     def dequeue(self):
         if self.items:
             return self.items.pop()
         return None
-        
+    #To return the back element   
     def peek(self):
         if self.items:
             return self.items[-1]
         return None
-    
+    #To get the length of the queue
     def size(self):
         return len(self.items)
-        
+    #To see if the queue is empty    
     def is_empty(self):
         return self.items == []
     
     
 q = Queue()
 
+#GOAL STATE
 goal_state = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]])
 
-root = np.array([[1,6,2,3],[9,5,7,4],[12,10,11,0],[13,14,15,8]])
+#TEST CASES
+root = np.array([[1, 2, 3, 4],[ 5, 6,0, 8], [9, 10, 7, 12] , [13, 14, 11, 15]])
+#root = np.array([[1, 0, 3, 4],[ 5, 2, 7, 8], [9, 6, 10, 11] , [13, 14, 15, 12]])
+#root = np.array([[0, 2, 3, 4],[ 1,5, 7, 8], [9, 6, 11, 12] , [13, 10, 14, 15]])
+#root = np.array([[5, 1, 2, 3],[0,6, 7, 4], [9, 10, 11, 8] , [13, 14, 15, 12]])
+#root = np.array([[1, 6, 2, 3], [9,5, 7, 4], [0, 10, 11, 8] , [13, 14, 15, 12]])
+
 root = np.reshape(root,(4,4))
 
-print('Root Node: ', root)
+#Declaring lists for Visited Nodes, Visited Nodes in String and Path
 vis = list()
 path = list()
 vis_str = list()
+
+#Adding the root to the queue
 q.enqueue(root)
+#Appending root to visited list
+vis.append(root)
 
-print('Queue after adding root : ',q.items)
-
+#This function updates the Current Node(Parent Node) on every iteration
+#It also returns the location of the blank tile in each updated current node
 def currentnode():
 
     cn1 = q.dequeue()
-    print('Queue after removing root : ',q.items)
-
-    vis.append(cn1)
     
     z = np.where( cn1 == 0 )
-    #print(a)
     a = z[0][0]
     b = z[1][0]
     
     return cn1,a,b
 
+#To move the tile upwards and return string converted node as well
 def up(i,j):
     cn2 = np.copy(cn1)
-    #print('CN1 : ',cn1)
-    cn2[i-1][j],cn2[i][j] = cn2[i][j],cn2[i-1][j]                      #up
-    #visitornot(cn2,cn1)
-    #print('up')
+    cn2[i-1][j],cn2[i][j] = cn2[i][j],cn2[i-1][j]             #up
     st = string(cn2)
     return st,cn2
-    
+
+#To move the tile downwards and return string converted node as well   
 def down(i,j):
     cn3 = np.copy(cn1)
-    #print('CN1 : ',cn1)
-    cn3[i+1][j],cn3[i][j] = cn3[i][j],cn3[i+1][j]                      #down
-    #visitornot(cn3,cn1)
-    #print('down')
+    cn3[i+1][j],cn3[i][j] = cn3[i][j],cn3[i+1][j]             #down
     st = string(cn3)
     return st,cn3
-    
+
+#To move the tile to the right and return string converted node as well   
 def right(i,j):
     cn4 = np.copy(cn1)
-    #print('CN1 : ',cn1)
     cn4[i][j+1],cn4[i][j] = cn4[i][j],cn4[i][j+1]                      #right
-    #visitornot(cn4,cn1)
-    #print('right')
     st = string(cn4)
     return st,cn4
-        
+
+#To move the tile to the left and return string converted node as well       
 def left(i,j):
     cn5 = np.copy(cn1)
-    #print('CN1 : ',cn1)
     cn5[i][j-1],cn5[i][j] = cn5[i][j],cn5[i][j-1]                      #left
-    #visitornot(cn5,cn1)
-    #print('left')
     st = string(cn5)
     return st,cn5
 
+#This function calls the appropriate move functions according to the restrictions of the tile --
+#   -- and store the string and array value of the generated nodes
+
+#The function returns the child nodes created of the current parent node and the current parent
 def move(i,j,cn1):
     
     children = list ()
     children_string = list()
-    #goal = None
-    #print(i,j)
-            
-       
-                              
+                                        
     if i == 0:
         if j == 0:
             st,cn = down(i,j)
@@ -128,7 +128,7 @@ def move(i,j,cn1):
             st,cn = left(i,j)
             children.append(cn) 
             children_string.append(st)
-            
+     
     if i == 1 or i == 2:
         if j == 0:
             st,cn = up(i,j)
@@ -193,7 +193,7 @@ def move(i,j,cn1):
            st,cn = left(i,j)
            children.append(cn) 
            children_string.append(st)
-           
+    
     visitornot(children,children_string,cn1) 
      
     return children,cn1
@@ -206,24 +206,22 @@ def string(cn):
             string=string+" "+str(cn[i][j])
     return string
 
-#This function 
+#This function checks if the current node is in the visited list or not
 def visitornot(cn,childstr,cn1):
                                                            
             counter=2
             for i in range(len(vis_str)):
                 if childstr == i:
                    counter=1
-                   #return None,None
                    break
                 else: 
                     counter=2
-                    #break
             if counter==2:
                 for i in range(len(cn)):
-                    #print('CN : ',cn)
                     vis_str.append(childstr)
                     vis.append((cn[i],cn1))  
 
+#Checking if the node is Goal State or not
 def gsornot(children,parent) :
     
     childs = np.asarray(children)
@@ -233,9 +231,9 @@ def gsornot(children,parent) :
            return childs[i],parent
         else: 
             q.enqueue(childs[i])
-    return
+    return 
 
-
+#Running the loop till the goal state is found
 y = None
     
 while y is None: 
@@ -244,12 +242,13 @@ while y is None:
     
     lis, parent = move(i,j,cn1)
 
-    y = gsornot(lis , parent)
+    y = gsornot(lis , parent)  
 
-
+          
+#Taking the node only from Y
 child=y[0]
 
-
+#Tracking back from Goal State to the first child
 while np.array_equiv(parent,root) ==  False:
     
     for i in range(len(vis)):
@@ -259,10 +258,12 @@ while np.array_equiv(parent,root) ==  False:
             child  = vis[i][1]                           
             path.append(vis[i][0])
             break
-        
+
+#Appending the root node and reversing to get the path             
 path.append(root)
 path.reverse()
 
+#Generating text file of the path for TEST CASE 1
 file = open("nodePath_TestCase1.txt", "w")
 for i in range(len(path)):
     a = string(path[i])
@@ -273,3 +274,71 @@ for i in range(len(path)):
 
 file.close()    
 print(path)
+
+#Generating text file of the path for TEST CASE 2
+'''file = open("nodePath_TestCase2.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()    
+print(path)'''
+
+
+#Generating text file of the path for TEST CASE 3
+'''file = open("nodePath_TestCase3.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()    
+print(path)'''
+
+
+#Generating text file of the path for TEST CASE 4
+'''file = open("nodePath_TestCase4.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()    
+print(path)'''
+
+
+#Generating text file of the path for TEST CASE 5
+'''file = open("nodePath_TestCase5.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()   
+print(path)'''
+
+   
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
