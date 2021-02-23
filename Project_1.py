@@ -29,11 +29,15 @@ class Queue:
     
 q = Queue()
 
+goal_state = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,0]])
+
 root = np.array([[1,6,2,3],[9,5,7,4],[12,10,11,0],[13,14,15,8]])
 root = np.reshape(root,(4,4))
 
 print('Root Node: ', root)
-
+vis = list()
+path = list()
+vis_str = list()
 q.enqueue(root)
 
 print('Queue after adding root : ',q.items)
@@ -241,3 +245,20 @@ while y is None:
     lis, parent = move(i,j,cn1)
 
     y = gsornot(lis , parent)
+
+
+child=y[0]
+
+
+while np.array_equiv(parent,root) ==  False:
+    
+    for i in range(len(vis)):
+        
+        if np.array_equiv(child,vis[i][0]) == True:   
+            parent = vis[i][1] 
+            child  = vis[i][1]                           
+            path.append(vis[i][0])
+            break
+        
+path.append(root)
+path.reverse()
