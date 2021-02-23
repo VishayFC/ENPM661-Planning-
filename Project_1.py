@@ -230,3 +230,14 @@ def gsornot(children,parent) :
         else: 
             q.enqueue(childs[i])
     return
+
+
+y = None
+    
+while y is None: 
+    
+    cn1,i,j = currentnode()
+    
+    lis, parent = move(i,j,cn1)
+
+    y = gsornot(lis , parent)
