@@ -189,3 +189,44 @@ def move(i,j,cn1):
            st,cn = left(i,j)
            children.append(cn) 
            children_string.append(st)
+           
+    visitornot(children,children_string,cn1) 
+     
+    return children,cn1
+
+#This function converts the incoming numpy arrays to strings
+def string(cn):
+    string=""
+    for i in range(len(cn)):
+        for j in range(len(cn[0])):
+            string=string+" "+str(cn[i][j])
+    return string
+
+#This function 
+def visitornot(cn,childstr,cn1):
+                                                           
+            counter=2
+            for i in range(len(vis_str)):
+                if childstr == i:
+                   counter=1
+                   #return None,None
+                   break
+                else: 
+                    counter=2
+                    #break
+            if counter==2:
+                for i in range(len(cn)):
+                    #print('CN : ',cn)
+                    vis_str.append(childstr)
+                    vis.append((cn[i],cn1))  
+
+def gsornot(children,parent) :
+    
+    childs = np.asarray(children)
+    
+    for i in range(len(children)):
+        if np.array_equiv(childs[i],goal_state) == True:
+           return childs[i],parent
+        else: 
+            q.enqueue(childs[i])
+    return
