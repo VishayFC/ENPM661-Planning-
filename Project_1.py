@@ -124,3 +124,68 @@ def move(i,j,cn1):
             st,cn = left(i,j)
             children.append(cn) 
             children_string.append(st)
+            
+    if i == 1 or i == 2:
+        if j == 0:
+            st,cn = up(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = right(i,j)
+            children.append(cn) 
+            children_string.append(st)
+                
+        elif j == 1 or j == 2:
+            st,cn = up(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = right(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = left(i,j)
+            children.append(cn)
+            children_string.append(st)
+            
+        elif j == 3:
+            st,cn = up(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = left(i,j)
+            children.append(cn)
+            children_string.append(st)
+                
+    if i == 3:
+       if j == 0:
+           st,cn = up(i,j)
+           children.append(cn)
+           children_string.append(st)
+           st,cn = right(i,j)
+           children.append(cn)
+           children_string.append(st)
+               
+       elif j == 1 or j == 2:
+           st,cn = up(i,j)
+           children.append(cn)
+           children_string.append(st)
+           st,cn = left(i,j)
+           children.append(cn)
+           children_string.append(st)
+           st,cn = right(i,j)
+           children.append(cn)
+           children_string.append(st)
+               
+       elif j == 3:
+           st,cn = up(i,j)
+           children.append(cn)
+           children_string.append(st)
+           st,cn = left(i,j)
+           children.append(cn) 
+           children_string.append(st)
