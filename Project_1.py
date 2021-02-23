@@ -88,3 +88,39 @@ def left(i,j):
     st = string(cn5)
     return st,cn5
 
+def move(i,j,cn1):
+    
+    children = list ()
+    children_string = list()
+    #goal = None
+    #print(i,j)
+            
+       
+                              
+    if i == 0:
+        if j == 0:
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = right(i,j)
+            children.append(cn)
+            children_string.append(st)
+                
+        elif j == 1 or j == 2:
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = left(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = right(i,j)
+            children.append(cn) 
+            children_string.append(st)
+                
+        elif j == 3:
+            st,cn = down(i,j)
+            children.append(cn)
+            children_string.append(st)
+            st,cn = left(i,j)
+            children.append(cn) 
+            children_string.append(st)
