@@ -262,3 +262,14 @@ while np.array_equiv(parent,root) ==  False:
         
 path.append(root)
 path.reverse()
+
+file = open("nodePath_TestCase1.txt", "w")
+for i in range(len(path)):
+    a = string(path[i])
+    #print(type(a))
+    #print('A : ',a)
+    file.write(a)
+    file.write('\n')
+
+file.close()    
+print(path)
